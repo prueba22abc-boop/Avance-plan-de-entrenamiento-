@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cartilla de entrenamiento</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;box-sizing:border-box;--bg:#0d0e11;--p:#171a20;--l:#2a2e38;--t:#eef0f4;--m:#8e96a5;--lv:#eef0f4;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:400 16px/1.5 Barlow,system-ui,sans-serif}
+body[data-lv=p]{--lv:#2dd4bf}body[data-lv=i]{--lv:#fbbf24}body[data-lv=a]{--lv:#f43f5e}
+main{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;margin:0;line-height:1;text-transform:uppercase}
+h1{font-size:44px;font-weight:800;letter-spacing:.01em}
+h2{font-size:30px;font-weight:800;margin:20px 0 14px}
+h3{font-size:24px;font-weight:800}
+.bar{display:flex;gap:6px;margin:0 0 6px}
+.bar i{flex:1;height:5px;background:var(--l);border-radius:3px}
+.bar i.on{background:var(--lv)}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:36px;color:var(--m)}
+button{font:inherit;color:inherit;cursor:pointer}
+.chip{background:none;border:1px solid var(--l);border-radius:20px;padding:5px 14px;color:var(--t)}
+.chip b{color:var(--lv)}
+.card{display:block;width:100%;text-align:left;background:var(--p);border:1px solid var(--l);border-left:6px solid var(--c,var(--l));border-radius:6px;padding:16px 18px;margin-bottom:12px}
+.card:active,.card:focus-visible{border-color:var(--c,var(--t));outline:none}
+.card small{display:block;color:var(--m);margin-top:4px}
+.card h3{color:var(--c,var(--t))}
+.ex{background:var(--p);border:1px solid var(--l);border-radius:6px;padding:16px 18px;margin-bottom:12px}
+.var{margin:10px 0;padding:10px 12px;background:var(--bg);border-left:4px solid var(--lv);font-weight:500}
+.how{color:var(--m);margin:0}
+details{margin-top:10px;color:var(--m)}summary{cursor:pointer;color:var(--t)}
+details p{margin:6px 0 0}details b{color:var(--t)}
+footer{margin-top:32px;color:var(--m);font-size:14px}
+</style></head><body>
+<main><div class="bar" id="bar"></div><div class="top" id="top"></div><div id="v"></div>
+<footer>Cartilla creada por Duber Andrés Irreño Arias</footer></main>
+<script>
+const L={p:['Principiante','Aprende el movimiento y la técnica','#2dd4bf'],i:['Intermedio','Ya domina lo básico y busca más reto','#fbbf24'],a:['Avanzado','Control, fuerza y potencia','#f43f5e']};
+const G={
+inf:['Tren inferior',[
+['Squat','Pies al ancho de hombros, baja la cadera hacia atrás como si te sentaras, espalda recta y rodillas alineadas con los pies. Sube empujando el suelo.','Sentadilla asistida (con apoyo) o a una silla','Sentadilla libre con peso corporal','Sentadilla con pausa isométrica de 3 s abajo'],
+['Lunges','Da un paso largo y baja hasta que ambas rodillas formen 90°, sin que la rodilla delantera pase la punta del pie. Empuja para volver.','Zancadas estáticas en el sitio','Zancadas alternadas caminando o hacia atrás','Zancadas con salto (jumping lunges)'],
+['Jump squat','Baja en sentadilla y salta de forma explosiva hacia arriba. Cae suave, con las rodillas flexionadas.','Sentadilla rápida elevando talones','Jump squat estándar con caída suave','Jump squat con rodillas al pecho (tuck jump)'],
+['Puente de glúteo','Acostado boca arriba con rodillas flexionadas, eleva la cadera apretando glúteos hasta alinear hombros, cadera y rodillas.','Puente apoyando ambos pies en el suelo','Puente sostenido en isometría arriba','Puente de glúteo a una sola pierna'],
+['Sumo squat','Pies muy abiertos y puntas hacia afuera. Baja con el torso erguido y las rodillas siguiendo la dirección de los pies.','Rango corto con pies abiertos a 45°','Sumo squat profundo','Sumo squat isométrico con elevación de talones'],
+['Pistols','Sentadilla a una pierna con la otra extendida al frente. Baja controlado y sube sin dejar caer la rodilla hacia adentro.','Asistidos agarrando un soporte o bajando a silla','Bajando libre hasta los 90°','Pistols profundos sin asistencia'],
+['Sentadilla isométrica','Espalda pegada a la pared, baja hasta el ángulo indicado y mantén la posición durante el tiempo marcado.','Apoyado en pared a 45°','Apoyado en pared a 90°','Apoyado en pared a una sola pierna'],
+['Búlgara','Apoya el pie trasero en una superficie elevada. Baja con la pierna de adelante hasta 90° y sube con el torso firme.','Pie trasero en altura baja y con apoyo manual','Libre sobre silla o banco estándar','Con salto al subir en la pierna adelantada']]],
+sup:['Tren superior',[
+['Push ups','Manos bajo los hombros y cuerpo en línea recta. Baja el pecho cerca del suelo y empuja hasta estirar los brazos.','Inclinadas (manos en pared o mesa)','Rodillas apoyadas o tradicionales en suelo','Declinadas (pies elevados) o plio-flexiones'],
+['Dips','Manos en el borde de la silla. Baja flexionando los codos hacia atrás hasta 90° y sube extendiendo los brazos.','En silla con rodillas flexionadas a 90°','En silla con piernas totalmente estiradas','En barras paralelas levantando peso corporal'],
+['Flexiones en pica','Cuerpo en V invertida con la cadera alta. Flexiona los codos llevando la cabeza hacia el suelo y empuja.','Pica en suelo con cadera semi-elevada','Pike push ups estándar en el suelo','Con los pies elevados sobre un banco o silla'],
+['Flexión supina','Bajo una barra o mesa firme, cuerpo recto mirando al techo. Jala el pecho hacia el agarre y baja controlado.','Invertida con rodillas flexionadas (vertical)','Cuerpo estirado inclinado a 45°','Paralela al suelo o a una mano'],
+['Apretones romboides','Lleva los hombros atrás juntando las escápulas, como si sostuvieras un lápiz entre ellas. Sostén y suelta.','De pie, apretando escápulas por 3 segundos','Inclinado manteniendo el torso hacia adelante','Inclinado con máxima tensión y banda o peso'],
+['Superman','Boca abajo, eleva brazos y piernas del suelo apretando espalda y glúteos. Baja con control.','Elevando alternadamente brazo y pierna contraria','Elevando brazos y piernas simultáneamente','Manteniendo elevación con remado de brazos'],
+['Extensión de tríceps','Codos pegados al cuerpo. Estira los brazos hasta bloquear y aprieta el tríceps al final.','Patada de tríceps sin peso apretando al final','Extensión corporal apoyando manos en pared','Extensión en el suelo en posición de plancha'],
+['Flexiones inversas','Acostado boca arriba, empuja los codos contra el suelo para elevar el torso y vuelve lento.','Empujando codos contra el suelo sin elevar cadera','Despegando torso y escápulas del suelo','Sostenidas arriba en puente dorsal'],
+['Flexión y rotación','Haz una flexión y, al subir, gira el torso abriendo un brazo hacia el techo. Alterna lados.','Flexión en rodillas + apertura de brazo','Flexión estándar + rotación a plancha lateral','Flexión con rotación rápida sin pausa'],
+['Rotación de hombros','Con los brazos extendidos a los lados, dibuja círculos controlados en ambos sentidos.','Círculos pequeños con brazos en cruz','Círculos amplios (horario y antihorario)','Rotaciones en posición de V-hold o plancha'],
+['Flexiones hindúes','Desde pica, desliza el pecho hacia adelante y arriba hasta la posición de cobra, y regresa en un solo movimiento fluido.','Transición de pica a cobra apoyando rodillas','Movimiento fluido continuo sobre pies y manos','Reversas (haciendo el recorrido ida y vuelta)'],
+['Flexiones diamante','Manos juntas formando un diamante bajo el pecho. Baja con los codos pegados al cuerpo y empuja.','Apoyadas en pared o con rodillas en suelo','Estrictas en suelo','Declinadas (pies sobre una silla)']]],
+core:['Core',[
+['Sit ups','Boca arriba con rodillas flexionadas, sube el torso hasta sentarte usando el abdomen y baja controlado.','Crunch básico despegando solo escápulas','Sit ups completos subiendo el torso','Con brazos estirados arriba (butterfly sit ups)'],
+['Foot to foot','Boca arriba con rodillas flexionadas, eleva el torso y lleva la mano hacia el pie del mismo lado, alternando.','Cabeza apoyada en el suelo','Escápulas elevadas en tensión constante','Piernas elevadas en el aire a 45°'],
+['V ups','Boca arriba, eleva torso y piernas a la vez formando una V, y baja sin apoyar del todo.','Tuck crunches (agrupando rodillas al pecho)','A una pierna (single-leg V-ups)','Estrictos tocando puntas de pies en el aire'],
+['Plancha','Apoyado en antebrazos y puntas de pies, cuerpo recto, abdomen y glúteos apretados. Sostén sin hundir la cadera.','Sobre antebrazos apoyando rodillas','Estándar sobre antebrazos o manos (30–60 s)','RKC (tensión máxima) o elevando un brazo'],
+['Russian twist','Sentado con el torso inclinado hacia atrás, gira el tronco llevando las manos de un lado al otro.','Con los talones apoyados en el suelo','Con los pies elevados en el aire','Con piernas completamente estiradas'],
+['Leg raise','Boca arriba con la zona lumbar pegada al suelo, sube las piernas y bájalas despacio sin tocar el suelo.','Elevación de rodillas hacia el pecho','Piernas rectas bajando controlado','Colgado de una barra (hanging leg raise)'],
+['Plancha lateral','De lado y apoyado en el antebrazo, eleva la cadera hasta alinear el cuerpo de cabeza a pies.','Apoyando las rodillas','Pies apilados uno sobre el otro','Elevando la pierna superior (star plank)'],
+['Dead bug','Boca arriba con brazos y rodillas a 90°, extiende brazo y pierna contrarios sin despegar la zona lumbar.','Moviendo solo las piernas alternadamente','Coordinado brazo y pierna contrarios','Pausa isométrica a 1 cm del suelo'],
+['Tijeras','Boca arriba con las piernas elevadas, cruza una sobre la otra de forma alterna cuidando la zona lumbar.','Horizontales con piernas elevadas a 90°','A 45° manteniendo la zona lumbar pegada','A 15° rozando el suelo (flutter kicks)'],
+['Bicycle crunch','Lleva el codo hacia la rodilla contraria mientras estiras la otra pierna, alternando como si pedalearas.','Pausa en cada rodilla sin tocar el suelo','Fluido y con ritmo continuo','Lento, sosteniendo 3 segundos por lado'],
+['Rolling plank','Desde la plancha, rueda el cuerpo de lado a lado manteniéndolo rígido.','Transición apoyando las rodillas','Continuo lado a lado manteniendo postura','Sin antebrazos, solo palmas extendidas'],
+['One arm toe touch','Boca arriba con las piernas elevadas, lleva una mano hacia la punta del pie contrario y alterna.','Llevando mano hacia la rodilla contraria','Levantando la pierna completamente recta','Despegando todo el torso de la colchoneta'],
+['Crunch inverso','Boca arriba, lleva las rodillas al pecho elevando la cadera del suelo con el abdomen bajo.','Llevando rodillas al pecho despegando poco','Elevando la cadera verticalmente hacia arriba','Bajada controlada y lenta (4 segundos)'],
+['Limpiabrisas','Boca arriba con los brazos abiertos, mueve las piernas de un lado al otro como un limpiaparabrisas.','En suelo con rodillas flexionadas a 90°','En suelo con piernas totalmente extendidas','Colgado en barra de dominadas']]],
+acon:['Acondicionamiento',[
+['Skipping','Trote en el sitio elevando las rodillas rápido, con los brazos coordinados.'],
+['Jumping jacks','Salta abriendo las piernas y llevando los brazos arriba; vuelve a cerrar.'],
+['Jumping cross','Salto con cruce alternado de piernas y brazos, manteniendo un ritmo constante.'],
+['Burpees','Baja a plancha, haz una flexión, recoge los pies y salta con los brazos arriba.'],
+['Walking bear','Camina en cuatro apoyos con las rodillas despegadas del suelo y la cadera baja.'],
+['Devil press','Burpee con mancuernas: tras la flexión, sube las mancuernas del suelo y llévalas sobre la cabeza.'],
+['Mountain climbers','En plancha alta, lleva las rodillas al pecho de forma alterna a ritmo rápido.']]],
+fmt:['Formatos de entrenamiento',[
+['AMRAP','Tantas rondas como puedas del circuito en un tiempo fijo.'],
+['EMOM','Cada minuto, al inicio del minuto, haz las repeticiones asignadas y descansa lo que sobre.'],
+['Endurance','Trabajo continuo a ritmo moderado durante un tiempo largo para ganar resistencia.'],
+['Dead by','Cada minuto sumas una repetición más; termina cuando ya no puedas completarlas.'],
+['Tabata','8 rondas de 20 segundos de trabajo y 10 segundos de descanso.']]]};
+let lv=null,gr=null;
+const $=id=>document.getElementById(id);
+function go(l,g){lv=l;gr=g;draw();scrollTo(0,0)}
+function draw(){
+ document.body.dataset.lv=lv||'';
+ const step=!lv?0:!gr?1:2;
+ $('bar').innerHTML=[0,1,2].map(i=>`<i class="${i<=step?'on':''}"></i>`).join('');
+ let top='',h='';
+ if(!lv){
+  top='<span>Paso 1 de 3</span>';
+  h='<h1>Cartilla de entrenamiento</h1><h2>¿Qué nivel tienen tus estudiantes?</h2>'+
+   Object.entries(L).map(([k,[n,d,c]])=>`<button class="card" style="--c:${c}" onclick="go('${k}',null)"><h3>${n}</h3><small>${d}</small></button>`).join('');
+ }else if(!gr){
+  top=`<button class="chip" onclick="go(null,null)">‹ Nivel: <b>${L[lv][0]}</b></button><span>Paso 2 de 3</span>`;
+  h='<h2>Elige el grupo muscular</h2>'+Object.entries(G).map(([k,[n,e]])=>`<button class="card" style="--c:${L[lv][2]}" onclick="go('${lv}','${k}')"><h3>${n}</h3><small>${e.length} ${k=='fmt'?'formatos':'ejercicios'}</small></button>`).join('');
+ }else{
+  const [n,e]=G[gr];
+  top=`<button class="chip" onclick="go('${lv}',null)">‹ ${n}</button><button class="chip" onclick="go(null,null)">Nivel: <b>${L[lv][0]}</b></button>`;
+  h=`<h2>${n} · ${L[lv][0]}</h2>`+e.map(x=>{
+   const k='pia'.indexOf(lv)+2;
+   return `<article class="ex"><h3>${x[0]}</h3>${x.length>3?`<div class="var">${x[k]}</div><p class="how">${x[1]}</p><details><summary>Ver los 3 niveles</summary><p><b>Principiante:</b> ${x[2]}</p><p><b>Intermedio:</b> ${x[3]}</p><p><b>Avanzado:</b> ${x[4]}</p></details>`:`<p class="how">${x[1]}</p>`}</article>`}).join('');
+ }
+ $('top').innerHTML=top;$('v').innerHTML=h;
+}
+draw();
+</script></body></html>
